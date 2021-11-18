@@ -19,14 +19,27 @@ export default function LoginForm({onSubmit: onSubmitProp}) {
     }
 
     return (
-        <form className="login-form">
-            <TextField value={values.username} placeholder="username" onChange={(e) => {
-                onValueChange("username", e.target.value);
-            }}>Username</TextField>
-            <TextField value={values.password} placeholder="password" type="password" onChange={(e) => {
-                onValueChange("password", e.target.value);
-            }}>Password</TextField>
-            <Button title="Sign in" onClick={onSubmit}/>
-        </form>
+        <>
+            <form className="login-form">
+                <div className="login__input">
+                    <TextField label="Username" value={values.username} placeholder="Username" onChange={(e) => {
+                        onValueChange("username", e.target.value);
+                    }}>Username</TextField>
+                </div>
+                <div className="login__input">
+                    <TextField label="Password" value={values.password} placeholder="Password" type="password" onChange={(e) => {
+                        onValueChange("password", e.target.value);
+                    }}>Password</TextField>
+                </div>
+                <div className="login__input">
+                    <Button onClick={onSubmit} variant="outlined">Sign in</Button>
+                </div>
+            </form>
+            <style jsx>{`
+                .login__input {
+                    padding: 10px;
+                }
+            `}</style>
+        </>
     )
 }
