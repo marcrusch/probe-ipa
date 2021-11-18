@@ -31,6 +31,13 @@ enum ModelYear {
   YEAR_2021
 }
 
+enum LendState {
+  REQUESTED
+  LEND_APPROVED
+  RETURNED
+  RETURN_APPROVED
+}
+
 type Device {
   operatingSystem: OperatingSystem!
   displaySize: DisplaySize!
@@ -43,11 +50,13 @@ type Device {
 type LendPeriod {
   startTs: Float!
   endTs: Float!
-  device: Device
+  device: Device!
+  lendState: LendState!
 }
 
 type Query {
   devices: [Device!]
+  lendPeriods: [LendPeriod!]
   lendPeriodsByDevice(deviceId: ID!): [LendPeriod!]
     @resolver(name: "GetDeviceLendPeriods")
 }
