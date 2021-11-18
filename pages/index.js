@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react'
+import Header from '../src/components/Header';
 import Login from './Login';
 
 export default function Home() {
@@ -29,6 +30,7 @@ export default function Home() {
 
   return (
     <>
+      <Header userInfo={userInfo}/>
       {!userInfo && <Login onUser={onUser}/>}
       {userInfo && <div>username: {userInfo.username} password: {userInfo.password} role: {userInfo.role}</div>}
     </>
