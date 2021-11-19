@@ -1,7 +1,7 @@
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Button, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function TimerangePicker({setDatepickerValue}) {
     const initial = {
@@ -9,10 +9,15 @@ export default function TimerangePicker({setDatepickerValue}) {
         to: null
     }
 
+    const [disabled, setDisabled] = useState(false);
+
     const onValueChange = (valueName, value) => {
+        setDisabled(false)
         setValues({...values, [valueName]: value})
     }
+
     const [values, setValues] = useState(initial);
+    
     return (
         <>
             <div className="timerange-picker">
@@ -40,8 +45,9 @@ export default function TimerangePicker({setDatepickerValue}) {
                             />
                         </div>
                         <div className="timerange-picker__select-button">
-                            <Button variant="outlined" onClick={() => {
+                            <Button disabled={disabled} variant="outlined" onClick={() => {
                                 setDatepickerValue(values)
+                                setDisabled(true);
                             }}>Select</Button>
                         </div>
                     </div>

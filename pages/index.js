@@ -17,8 +17,8 @@ export default function Home() {
     <>
     <Header userInfo={user} onLogout={onLogout}/>
       {!user && <Login setGlobalUser={setUser}/> }
-      {user && user.role==="admin" && <Admin/>}
-      {user && user.role==="user" && <Main/>}
+      {user && user.role==="admin" && <Admin user={user}/>}
+      {user && user.role==="user" && <Main user={user}/>}
     </>
   )
 }

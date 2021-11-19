@@ -52,6 +52,7 @@ type LendPeriod {
   endTs: Float!
   device: Device!
   lendState: LendState!
+  user: String!
 }
 
 type Query {

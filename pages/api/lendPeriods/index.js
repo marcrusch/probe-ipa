@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         POST: async () => {
             const {
                 body: {
-                    deviceId, startTs, endTs, lendState
+                    deviceId, startTs, endTs, lendState, user
                 }
             } = req;
 
@@ -18,6 +18,7 @@ export default async function handler(req, res) {
                 startTs,
                 endTs,
                 lendState,
+                user,
                 device: {
                     connect: deviceId
                 }
@@ -28,7 +29,7 @@ export default async function handler(req, res) {
         PATCH: async () => {
             const {
                 body: {
-                    id, data: {deviceId, startTs, endTs, lendState}
+                    id, data: {deviceId, startTs, endTs, lendState, user}
                 }
             } = req;
 
@@ -36,6 +37,7 @@ export default async function handler(req, res) {
                 startTs,
                 endTs,
                 lendState,
+                user,
                 device: {
                     connect: deviceId
                 }
