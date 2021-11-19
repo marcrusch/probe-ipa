@@ -1,6 +1,6 @@
 import UserInfo from "./UserInfo";
 
-export default function Header({userInfo}) {
+export default function Header({userInfo, onLogout}) {
     return (
         <>
             <div className="header">
@@ -12,7 +12,7 @@ export default function Header({userInfo}) {
                 </div>
                 <div className="header__child header__spacing"/>
                 <div className="header__child">
-                    <UserInfo userInfo={userInfo}/>
+                    {userInfo && <UserInfo userInfo={userInfo} onLogout={onLogout} />}
                 </div>
             </div>
             <style jsx>{`
