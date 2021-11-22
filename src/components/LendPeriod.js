@@ -26,7 +26,7 @@ export default function LendPeriod({lendPeriod, onDelete}) {
                     {lendPeriod.device.displaySize.slice(5) + '"'}
                 </div>
                 <div className="lend-period__item lend-period__button">
-                    <Button sx={{marginRight: "-20px"}} variant="contained" onClick={handleDeleteClick}>Delete</Button>
+                    {lendPeriod.lendState === "REQUESTED" && <Button sx={{marginRight: "-20px"}} variant="contained" onClick={handleDeleteClick}>Delete</Button>}
                 </div>
             </div>
             <style jsx>{`
