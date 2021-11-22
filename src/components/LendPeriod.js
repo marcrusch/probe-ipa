@@ -17,10 +17,9 @@ export default function LendPeriod({lendPeriod, onDelete}) {
                     {new Date(lendPeriod.endTs).toLocaleDateString()}
                 </div>
                 <div className="lend-period__item">
-                    {lendPeriod.device}
+                    {lendPeriod.lendState}
                 </div>
                 <div className="lend-period__item">
-                    {lendPeriod.lendState}
                 </div>
                 <div className="lend-period__item">
                     <Button variant="contained" onClick={handleDeleteClick}>Delete</Button>

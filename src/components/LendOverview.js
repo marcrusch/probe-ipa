@@ -8,8 +8,9 @@ export default function LendOverview({lendPeriods, user, onDelete}) {
                     <div className="lend-overview__header-item">#</div>
                     <div className="lend-overview__header-item">From</div>
                     <div className="lend-overview__header-item">To</div>
-                    <div className="lend-overview__header-item">Device</div>
                     <div className="lend-overview__header-item">State</div>
+                    <div className="lend-overview__header-item"></div>
+                    <div className="lend-overview__header-item"></div>
                 </div>
                 {lendPeriods.map((lendPeriod, index) => {
                     if(lendPeriod.user === user.username) {
