@@ -12,10 +12,10 @@ export default function Device({device}) {
                     {device.keyboardLayout}
                 </div>
                 <div className="device__info-item">
-                    {device.displaySize}
+                    {device.displaySize.slice(5) + '"'}
                 </div>
                 <div className="device__info-item">
-                    {device.modelYear}
+                    {device.modelYear.slice(5)}
                 </div>
                 <div className="device__info-item">
                     {device.comment}
