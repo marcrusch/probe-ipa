@@ -1,7 +1,5 @@
-import { useState } from "react";
 import DeviceOverviewEntry from "./DeviceOverviewEntry";
 import useSWR from "swr";
-import LendOverlay from "./LendOverlay";
 
 const DEVICES_PATH = "/api/devices"
 
