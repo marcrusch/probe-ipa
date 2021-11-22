@@ -15,7 +15,7 @@ export default function DeviceOverview({onRequestLend, allowLend}) {
                     <div className="device-overview__header-item">Keyboard Layout</div>
                     <div className="device-overview__header-item">Display Size</div>
                     <div className="device-overview__header-item">Model Year</div>
-                    <div className="device-overview__header-item"></div>
+                    <div className="device-overview__header-item">Comment</div>
                     <div className="device-overview__header-item"></div>
                 </div>
                 <div className="device-overview__main">

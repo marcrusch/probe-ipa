@@ -17,6 +17,11 @@ export default function Device({device}) {
                 <div className="device__info-item">
                     {device.modelYear}
                 </div>
+                <div className="device__info-item">
+                    {device.comment}
+                </div>
+                <div className="device__info-item">
+                </div>
             </div>
             <style jsx>{`
                 .device {

@@ -26,7 +26,6 @@ export default function DeviceOverviewEntry({device, onRequestLend: onRequestLen
                 }
 
                 .device-overview-entry__operation-wrapper {
-                    flex: 0.4;
                     position: relative;
                 }
             `}</style>

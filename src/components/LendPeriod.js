@@ -20,9 +20,13 @@ export default function LendPeriod({lendPeriod, onDelete}) {
                     {lendPeriod.lendState}
                 </div>
                 <div className="lend-period__item">
+                    {lendPeriod.device.operatingSystem}
                 </div>
                 <div className="lend-period__item">
-                    <Button variant="contained" onClick={handleDeleteClick}>Delete</Button>
+                    {lendPeriod.device.displaySize}
+                </div>
+                <div className="lend-period__item lend-period__button">
+                    <Button sx={{marginRight: "-20px"}} variant="contained" onClick={handleDeleteClick}>Delete</Button>
                 </div>
             </div>
             <style jsx>{`
@@ -34,6 +38,10 @@ export default function LendPeriod({lendPeriod, onDelete}) {
                     flex: 1;
                     text-align: center;
                     padding: 20px;
+                }
+
+                .lend-period__button {
+                    text-align: right;
                 }
             `}</style>
         </>

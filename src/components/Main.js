@@ -32,18 +32,35 @@ export default function Main({user}) {
     }
 
     const onLendRequestSubmit = async () => {
-        try {
-            const posted = await onCreate({
-                deviceId: lendRequestValues.device._id,
-                startTs: lendRequestValues.datepickerValue.from.getTime(),
-                endTs: lendRequestValues.datepickerValue.to.getTime(),
-                lendState: "REQUESTED",
-                user: user.username
-            });
-            setSnackbar({...snackbar, open: true})
-            setLendRequestValues(null);
-        } catch(e) {
-            setSnackbar({open: true, severity: "error", alert: "Oops, that didn't work :("});
+        let allowLend = true;
+        lendPeriods.forEach((lendPeriod) => {
+            if(datepickerValue.from < datepickerValue.to) {
+                if(lendPeriod.device._id === lendRequestValues.device._id) {
+                    allowLend = lendRequestValues.datepickerValue.from > lendPeriod.endTs;
+                    if(allowLend) {
+                        allowLend = lendRequestValues.datepickerValue.to > lendPeriod.startTs;
+                    }
+                }
+            } else {
+                allowLend = false;
+            }
+        })
+        if(allowLend) {
+            try {
+                const posted = await onCreate({
+                    deviceId: lendRequestValues.device._id,
+                    startTs: lendRequestValues.datepickerValue.from.getTime(),
+                    endTs: lendRequestValues.datepickerValue.to.getTime(),
+                    lendState: "REQUESTED",
+                    user: user.username
+                });
+                setSnackbar({...snackbar, open: true})
+                setLendRequestValues(null);
+            } catch(e) {
+                setSnackbar({open: true, severity: "error", alert: "Oops, that didn't work :("});
+            }
+        } else {
+            setSnackbar({open: true, severity: "error", alert: "Please select a different timerange"});
         }
         
     }
