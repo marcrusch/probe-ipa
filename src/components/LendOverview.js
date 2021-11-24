@@ -13,7 +13,7 @@ export default function LendOverview({lendPeriods, user, onDelete}) {
                     <div className="lend-overview__header-item">Device screen size</div>
                     <div className="lend-overview__header-item"></div>
                 </div>
-                {lendPeriods.map((lendPeriod, index) => {
+                {lendPeriods && lendPeriods.map((lendPeriod, index) => {
                     if(lendPeriod.user === user.username) {
                         return <LendPeriod lendPeriod={lendPeriod} key={`lendPeriod_${index}`} onDelete={onDelete}/>
                     }

@@ -1,6 +1,8 @@
+import { Button } from "@mui/material";
+import { useState } from "react";
 import UserInfo from "./UserInfo";
 
-export default function Header({userInfo, onLogout}) {
+export default function Header({userInfo, onLogout, setDisplayCreateDeviceOverlay}) {
     return (
         <>
             <div className="header">
@@ -10,6 +12,9 @@ export default function Header({userInfo, onLogout}) {
                 <div className="header__child">
                     <h1 className="header__title">Lend.</h1>
                 </div>
+                {userInfo.role === "admin" && (<div className="header__child">
+                    <Button className="header__child" onClick={() => setDisplayCreateDeviceOverlay(true)}>Create new Device</Button>
+                </div>)}
                 <div className="header__child header__spacing"/>
                 <div className="header__child">
                     {userInfo && <UserInfo userInfo={userInfo} onLogout={onLogout} />}

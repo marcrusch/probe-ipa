@@ -3,8 +3,7 @@ import AdminDeviceOverviewEntry from "./AdminDeviceOverviewEntry";
 
 const DEVICES_PATH = "/api/devices";
 
-export default function AdminDeviceOverview({onRequestLend, allowLend}) {
-    const {devices, onCreate} = useDevicesFlow();
+export default function AdminDeviceOverview({devices, handleEditClick}) {
     return (
         <>
             <div className="admin-device-overview">
@@ -18,33 +17,27 @@ export default function AdminDeviceOverview({onRequestLend, allowLend}) {
                     <div className="admin-device-overview__header-item"></div>
                 </div>
                 <div className="admin-device-overview__main">
-                    {devices?devices.map((device) => <AdminDeviceOverviewEntry allowLend={allowLend} device={device} onRequestLend={onRequestLend} key={`device_${device._id}`}/>):""}
+                    {devices?devices.map((device) => <AdminDeviceOverviewEntry device={device} handleEditClick={handleEditClick} key={`device_${device._id}`}/>):""}
                 </div>
             </div>
+            <style jsx>{`
+                .admin-device-overview {
+                    margin-top: 20px;
+                }
+
+                .admin-device-overview__header {
+                    background-color: #222;
+                    width: 100%;
+                    display: flex;
+                }
+
+                .admin-device-overview__header-item {
+                    flex: 1;
+                    padding: 20px;
+                    color: #fff;
+                    text-align: center;
+                }
+            `}</style>
         </>
     )
 }
-
-const useDevicesFlow = () => {
-    const fetcher = async (url) => await fetch(url).then((res) => res.json());
-    const {data: devices} = useSWR(DEVICES_PATH, fetcher);
-
-    const onCreate = async (payload) => {
-        await putDevice(payload);
-        await mutate(DEVICES_PATH);
-    }
-
-    return {
-        devices,
-        onCreate
-    }
-}
-
-const putDevice = (payload) => 
-    fetch(DEVICES_PATH, {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json"
-        },
-    }).then((res) => (res.ok?res.json(): Promise.reject(res)))

@@ -13,7 +13,7 @@ export default function DeviceOverviewEntry({device, onRequestLend: onRequestLen
                     <Device device={device}/>
                 </div>
                 <div className="device-overview-entry__operation-wrapper">
-                    <Button disabled={!allowLend} onClick={onRequestLend} sx={{position: "absolute", right: "0", top: "50%", transform: "translate(0, -50%)"}} variant="contained">Request Lend</Button>
+                    <Button disabled={!allowLend} onClick={onRequestLend} sx={{position: "absolute", right: "0", top: "50%", transform: "translate(0, -50%)", width: "150px"}} variant="contained">Request Lend</Button>
                 </div>
             </div>
             <style jsx>{`

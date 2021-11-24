@@ -1,11 +1,11 @@
 export default function TabNavigation({user, setActiveTab, activeTab}) {
     return (
         <>
-            {user.username === "user" &&  (<div className="tab-navigation">
+            {user.role === "user" &&  (<div className="tab-navigation">
                 <button className={`tab-navigation__item ${activeTab==="overview"?"tab-navigation__item--active":""}`} onClick={() => setActiveTab("overview")}>Overview</button>
                 <button className={`tab-navigation__item ${activeTab==="lends"?"tab-navigation__item--active":""}`} onClick={() => setActiveTab("lends")}>Lends</button>
             </div>)}
-            {user.username === "admin" &&  (<div className="tab-navigation">
+            {user.role === "admin" &&  (<div className="tab-navigation">
                 <button className={`tab-navigation__item ${activeTab==="overview"?"tab-navigation__item--active":""}`} onClick={() => setActiveTab("overview")}>Overview</button>
                 <button className={`tab-navigation__item ${activeTab==="pending"?"tab-navigation__item--active":""}`} onClick={() => setActiveTab("pending")}>Pending</button>
             </div>)}
