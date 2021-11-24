@@ -2,6 +2,7 @@ import { Alert, Snackbar } from "@mui/material";
 import { useState } from "react";
 import useSWR, { mutate } from "swr";
 import AdminDeviceOverview from "./AdminDeviceOverview";
+import ApprovalOverview from "./ApprovalOverview";
 import EditDeviceOverlay from "./EditDeviceOverlay";
 import TabNavigation from "./TabNavigation";
 
@@ -21,7 +22,8 @@ export default function Admin({
 
   const [activeTab, setActiveTab] = useState("overview");
   const { devices, onCreate, onDelete, onEdit } = useDevicesFlow();
-  const { lendPeriods, onDeleteLendPeriod } = useLendPeriodsFlow();
+  const { lendPeriods, onDeleteLendPeriod, onEditLendPeriod } =
+    useLendPeriodsFlow();
   const [snackbar, setSnackbar] = useState(initSnackbar);
   const [selectedDevice, setSelectedDevice] = useState();
 
@@ -77,15 +79,32 @@ export default function Admin({
     setDisplayCreateDeviceOverlay(false);
   };
 
-  const handleDeviceCreate = (payload) => {
+  const handleDeviceCreate = async (payload) => {
     try {
-      const created = onCreate(payload);
+      const created = await onCreate(payload);
       setSnackbar({
         ...snackbar,
         open: true,
         alert: "Device created successfully",
       });
       setDisplayCreateDeviceOverlay(false);
+    } catch {
+      setSnackbar({
+        open: true,
+        severity: "error",
+        alert: "Oops, that didn't work :/",
+      });
+    }
+  };
+
+  const handleApproval = async (payload) => {
+    try {
+      const edited = await onEditLendPeriod(payload);
+      setSnackbar({
+        ...snackbar,
+        open: true,
+        alert: "Approved successfully!",
+      });
     } catch {
       setSnackbar({
         open: true,
@@ -135,7 +154,14 @@ export default function Admin({
               />
             </>
           )}
-          {activeTab === "pending" && <></>}
+          {activeTab === "pending" && (
+            <>
+              <ApprovalOverview
+                approvals={lendPeriods}
+                onApprove={handleApproval}
+              />
+            </>
+          )}
         </div>
       </div>
       <style jsx>{`
@@ -210,18 +236,33 @@ const useLendPeriodsFlow = () => {
   const { data: lendPeriods } = useSWR(LENDPERIODS_PATH, fetcher);
 
   const onDeleteLendPeriod = async (payload) => {
-    await deleteLendPeriods(payload);
+    await deleteLendPeriod(payload);
+    await mutate(LENDPERIODS_PATH);
+  };
+
+  const onEditLendPeriod = async (payload) => {
+    await editLendPeriod(payload);
     await mutate(LENDPERIODS_PATH);
   };
 
   return {
     lendPeriods,
     onDeleteLendPeriod,
+    onEditLendPeriod,
   };
 };
-const deleteLendPeriods = (payload) =>
+const deleteLendPeriod = (payload) =>
   fetch(LENDPERIODS_PATH, {
     method: "DELETE",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => (res.ok ? res.json() : Promise.reject(res)));
+
+const editLendPeriod = (payload) =>
+  fetch(LENDPERIODS_PATH, {
+    method: "PATCH",
     body: JSON.stringify(payload),
     headers: {
       "Content-Type": "application/json",
