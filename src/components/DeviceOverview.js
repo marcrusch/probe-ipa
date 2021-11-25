@@ -1,5 +1,6 @@
 import DeviceOverviewEntry from "./DeviceOverviewEntry";
 import useSWR from "swr";
+import Filter from "./Filter";
 
 const DEVICES_PATH = "/api/devices";
 
@@ -7,6 +8,7 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
   const { devices } = useDevicesFlow();
   return (
     <>
+      <Filter />
       <div className="device-overview">
         <div className="device-overview__header">
           <div className="device-overview__header-item">#</div>

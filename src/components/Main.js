@@ -152,7 +152,6 @@ export default function Main({ user }) {
                 setDatepickerValue={onDatepickerSelect}
                 selected={datepickerValue ? true : false}
               />
-              <Filter user={user} />
               <DeviceOverview
                 allowLend={datepickerValue ? true : false}
                 onRequestLend={onRequestLend}

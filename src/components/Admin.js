@@ -114,6 +114,23 @@ export default function Admin({
     }
   };
 
+  const handleLendPeriodDeletion = async (payload) => {
+    try {
+      const deleted = await onDeleteLendPeriod(payload);
+      setSnackbar({
+        ...snackbar,
+        open: true,
+        alert: "Approved successfully!",
+      });
+    } catch {
+      setSnackbar({
+        open: true,
+        severity: "error",
+        alert: "Oops, that didn't work :/",
+      });
+    }
+  };
+
   return (
     <>
       <Snackbar
@@ -163,6 +180,7 @@ export default function Admin({
                     lendPeriod.lendState === "RETURNED"
                 )}
                 onApprove={handleApproval}
+                onDelete={handleLendPeriodDeletion}
               />
             </>
           )}

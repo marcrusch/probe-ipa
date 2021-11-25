@@ -4,22 +4,28 @@ import LendPeriod from "./LendPeriod";
 export default function ApprovalOverviewEntry({
   approval,
   onApprove: onApproveProp,
+  onDelete: onDeleteProp,
 }) {
   const onApprove = () => {
-    onApproveProp({
-      id: approval._id,
-      data: {
-        startTs: approval.startTs,
-        endTs: approval.endTs,
-        deviceId: approval.device._id,
-        lendState:
-          approval.lendState === "REQUESTED"
-            ? "LEND_APPROVED"
-            : "RETURN_APPROVED",
-        user: approval.user,
-      },
-    });
+    if (approval.lendState === "REQUESTED") {
+      onApproveProp({
+        id: approval._id,
+        data: {
+          startTs: approval.startTs,
+          endTs: approval.endTs,
+          deviceId: approval.device._id,
+          lendState:
+            approval.lendState === "REQUESTED"
+              ? "LEND_APPROVED"
+              : "RETURN_APPROVED",
+          user: approval.user,
+        },
+      });
+    } else if (approval.lendState === "RETURNED") {
+      onDeleteProp({ id: approval._id });
+    }
   };
+
   return (
     <>
       <div className="approval-overview-entry">

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { CalendarPicker, LocalizationProvider, PickersDay } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { addDays } from "date-fns";
-import { Grid } from "@mui/material";
 
 export default function Availability({ lendPeriods }) {
   const [displayOverlay, setDisplayOverlay] = useState(false);
@@ -25,7 +24,8 @@ export default function Availability({ lendPeriods }) {
           lendPeriod.startTs >= currentTimestamp &&
           lendPeriod.endTS > currentTimestamp &&
           (lendPeriod.lendState === "LEND_APPROVED" ||
-            lendPeriod.lendState === "RETURNED")
+            lendPeriod.lendState === "RETURNED" ||
+            lendPeriod.lendState === "REQUESTED")
       );
 
       if (futureLendPeriods) {

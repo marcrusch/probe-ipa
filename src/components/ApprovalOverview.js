@@ -1,6 +1,6 @@
 import ApprovalOverviewEntry from "./ApprovalOverviewEntry";
 
-export default function ApprovalOverview({ approvals, onApprove }) {
+export default function ApprovalOverview({ approvals, onApprove, onDelete }) {
   return (
     <>
       <div className="approval-overview">
@@ -19,6 +19,7 @@ export default function ApprovalOverview({ approvals, onApprove }) {
               approval={approval}
               key={`approval_${index}`}
               onApprove={onApprove}
+              onDelete={onDelete}
             />
           ))}
         </div>
