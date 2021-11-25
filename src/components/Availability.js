@@ -85,7 +85,6 @@ export default function Availability({ lendPeriods }) {
                     return (
                       <PickersDay
                         day={day}
-                        day={day}
                         onChange={() => {}}
                         onDaySelect={() => {}}
                         outsideCurrentMonth={false}
