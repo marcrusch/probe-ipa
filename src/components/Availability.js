@@ -3,7 +3,7 @@ import { CalendarPicker, LocalizationProvider, PickersDay } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { addDays } from "date-fns";
 
-export default function Availability({ lendPeriods }) {
+export default function Availability({ lendPeriods, setAvailable }) {
   const [displayOverlay, setDisplayOverlay] = useState(false);
   const unavailableDays = [];
   let dotAvailability = "available";
@@ -14,10 +14,12 @@ export default function Availability({ lendPeriods }) {
         lendPeriod.startTs <= currentTimestamp &&
         lendPeriod.endTs >= currentTimestamp &&
         (lendPeriod.lendState === "LEND_APPROVED" ||
-          lendPeriod.lendState === "RETURNED")
+          lendPeriod.lendState === "RETURNED" ||
+          lendPeriod.lendState === "REQUESTED")
     );
     if (currentLendPeriods.length) {
       dotAvailability = "current-unavailable";
+      setAvailable(false);
     } else {
       const futureLendPeriods = lendPeriods.filter(
         (lendPeriod) =>

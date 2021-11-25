@@ -2,7 +2,6 @@ import { Alert, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
 import DeviceOverview from "./DeviceOverview";
-import Filter from "./Filter";
 import LendOverlay from "./LendOverlay";
 import LendOverview from "./LendOverview";
 import TabNavigation from "./TabNavigation";

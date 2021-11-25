@@ -1,6 +1,6 @@
 import Availability from "./Availability";
 
-export default function Device({ device, lendPeriods }) {
+export default function Device({ device, lendPeriods, setAvailable }) {
   return (
     <>
       <div className="device">
@@ -13,7 +13,7 @@ export default function Device({ device, lendPeriods }) {
         <div className="device__info-item">{device.modelYear.slice(5)}</div>
         <div className="device__info-item">{device.comment}</div>
         <div className="device__info-item">
-          <Availability lendPeriods={lendPeriods} />
+          <Availability lendPeriods={lendPeriods} setAvailable={setAvailable} />
         </div>
         <div className="device__info-item"></div>
       </div>

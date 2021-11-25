@@ -1,14 +1,27 @@
 import DeviceOverviewEntry from "./DeviceOverviewEntry";
 import useSWR from "swr";
 import Filter from "./Filter";
+import { useEffect, useState } from "react";
 
 const DEVICES_PATH = "/api/devices";
 
 export default function DeviceOverview({ onRequestLend, allowLend }) {
+  const initial = {
+    operatingSystem: "All",
+    keyboardLayout: "All",
+    displaySize: "All",
+    modelYear: "All",
+    availability: "All",
+  };
   const { devices } = useDevicesFlow();
+
+  const [values, setValues] = useState(initial);
+
   return (
     <>
-      <Filter />
+      <div className="filter-container">
+        <Filter setValues={setValues} values={values} />
+      </div>
       <div className="device-overview">
         <div className="device-overview__header">
           <div className="device-overview__header-item">#</div>
@@ -22,15 +35,28 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
         </div>
         <div className="device-overview__main">
           {devices
-            ? devices.map((device) => (
-                <DeviceOverviewEntry
-                  allowLend={allowLend}
-                  device={device}
-                  onRequestLend={onRequestLend}
-                  key={`device_${device._id}`}
-                  lendPeriods={device.lendPeriods.data}
-                />
-              ))
+            ? devices
+                .filter(
+                  (item) =>
+                    (item.operatingSystem === values.operatingSystem ||
+                      values.operatingSystem === "All") &&
+                    (item.keyboardLayout === values.keyboardLayout ||
+                      values.keyboardLayout === "All") &&
+                    (item.displaySize === values.displaySize ||
+                      values.displaySize === "All") &&
+                    (item.modelYear === values.modelYear ||
+                      values.modelYear === "All")
+                )
+                .map((device) => (
+                  <DeviceOverviewEntry
+                    allowLend={allowLend}
+                    device={device}
+                    onRequestLend={onRequestLend}
+                    key={`device_${device._id}`}
+                    lendPeriods={device.lendPeriods.data}
+                    availabilityFiltered={values.availability !== "All"}
+                  />
+                ))
             : ""}
         </div>
       </div>
@@ -50,6 +76,11 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
           padding: 20px;
           color: #fff;
           text-align: center;
+        }
+
+        .filter-container {
+          width: 1000px;
+          margin: 0 auto;
         }
       `}</style>
     </>
