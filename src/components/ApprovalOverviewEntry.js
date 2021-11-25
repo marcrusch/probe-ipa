@@ -11,9 +11,7 @@ export default function ApprovalOverviewEntry({
       data: {
         startTs: approval.startTs,
         endTs: approval.endTs,
-        device: {
-          connect: approval.device._id,
-        },
+        deviceId: approval.device._id,
         lendState:
           approval.lendState === "REQUESTED"
             ? "LEND_APPROVED"

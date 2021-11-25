@@ -157,7 +157,11 @@ export default function Admin({
           {activeTab === "pending" && (
             <>
               <ApprovalOverview
-                approvals={lendPeriods}
+                approvals={lendPeriods.filter(
+                  (lendPeriod) =>
+                    lendPeriod.lendState === "REQUESTED" ||
+                    lendPeriod.lendState === "RETURNED"
+                )}
                 onApprove={handleApproval}
               />
             </>

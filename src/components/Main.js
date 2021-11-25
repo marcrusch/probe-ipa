@@ -21,7 +21,7 @@ export default function Main({ user }) {
   const [snackbar, setSnackbar] = useState(initSnackbar);
   const [activeTab, setActiveTab] = useState("overview");
 
-  const { lendPeriods, onCreate, onDelete } = useLendPeriodFlow();
+  const { lendPeriods, onCreate, onDelete, onEdit } = useLendPeriodFlow();
 
   const onDatepickerSelect = (values) => {
     setDatepickerValue(values);
@@ -36,7 +36,10 @@ export default function Main({ user }) {
     if (lendPeriods) {
       lendPeriods.forEach((lendPeriod) => {
         if (datepickerValue.from < datepickerValue.to) {
-          if (lendPeriod.device._id === lendRequestValues.device._id) {
+          if (
+            lendPeriod.device._id === lendRequestValues.device._id &&
+            lendPeriod.lendState !== "RETURN_APPROVED"
+          ) {
             allowLend =
               lendRequestValues.datepickerValue.from > lendPeriod.endTs;
             if (allowLend) {
@@ -101,6 +104,23 @@ export default function Main({ user }) {
     }
   };
 
+  const handleLendPeriodReturn = (payload) => {
+    try {
+      onEdit(payload);
+      setSnackbar({
+        open: true,
+        severity: "success",
+        alert: "Successfully requested return.",
+      });
+    } catch {
+      setSnackbar({
+        open: true,
+        severity: "error",
+        alert: "Oops, that didn't work :/",
+      });
+    }
+  };
+
   return (
     <>
       <Snackbar
@@ -145,6 +165,7 @@ export default function Main({ user }) {
                 lendPeriods={lendPeriods}
                 user={user}
                 onDelete={handleLendPeriodDelete}
+                onReturn={handleLendPeriodReturn}
               />
             </>
           )}
@@ -179,10 +200,16 @@ const useLendPeriodFlow = () => {
     await mutate(LENDPERIODS_PATH);
   };
 
+  const onEdit = async (payload) => {
+    await editLend(payload);
+    await mutate(LENDPERIODS_PATH);
+  };
+
   return {
     lendPeriods,
     onCreate,
     onDelete,
+    onEdit,
   };
 };
 
@@ -198,6 +225,15 @@ const putLend = (payload) =>
 const deleteLend = (payload) =>
   fetch(LENDPERIODS_PATH, {
     method: "DELETE",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => (res.ok ? res.json() : Promise.reject(res)));
+
+const editLend = (payload) =>
+  fetch(LENDPERIODS_PATH, {
+    method: "PATCH",
     body: JSON.stringify(payload),
     headers: {
       "Content-Type": "application/json",

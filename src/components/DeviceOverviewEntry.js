@@ -5,6 +5,7 @@ export default function DeviceOverviewEntry({
   device,
   onRequestLend: onRequestLendProp,
   allowLend,
+  lendPeriods,
 }) {
   const onRequestLend = (e) => {
     e.preventDefault();
@@ -14,7 +15,7 @@ export default function DeviceOverviewEntry({
     <>
       <div className="device-overview-entry">
         <div className="device-overview-entry__device-wrapper">
-          <Device device={device} />
+          <Device device={device} lendPeriods={lendPeriods} />
         </div>
         <div className="device-overview-entry__operation-wrapper">
           <Button

@@ -1,6 +1,11 @@
 import LendPeriod from "./LendPeriod";
 
-export default function LendOverview({ lendPeriods, user, onDelete }) {
+export default function LendOverview({
+  lendPeriods,
+  user,
+  onDelete,
+  onReturn,
+}) {
   return (
     <>
       <div className="lend-overview">
@@ -20,6 +25,7 @@ export default function LendOverview({ lendPeriods, user, onDelete }) {
                 lendPeriod={lendPeriod}
                 key={`lendPeriod_${index}`}
                 onDelete={onDelete}
+                onReturn={onReturn}
               />
             );
           }
