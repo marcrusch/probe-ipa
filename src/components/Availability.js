@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CalendarPicker, LocalizationProvider, PickersDay } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { addDays } from "date-fns";
+import { addDays, subDays } from "date-fns";
 
 export default function Availability({ lendPeriods, setAvailable }) {
   const [displayOverlay, setDisplayOverlay] = useState(false);
@@ -39,10 +39,10 @@ export default function Availability({ lendPeriods, setAvailable }) {
       const dayDiff = Math.floor(
         (lendPeriod.endTs - lendPeriod.startTs) / (1000 * 60 * 60 * 24)
       );
-      const startDate = new Date(lendPeriod.startTs);
+      const startDate = subDays(new Date(lendPeriod.startTs), 1);
       const daysToColor = [];
 
-      for (let i = 1; i <= dayDiff; i++) {
+      for (let i = 1; i <= dayDiff + 1; i++) {
         daysToColor.push(addDays(startDate, i).setHours(0, 0, 0, 0));
       }
       unavailableDays.push(...daysToColor);
