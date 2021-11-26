@@ -1,13 +1,12 @@
-import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Button,
+} from "@mui/material";
 import valuesConfig from "../config/values.config";
 export default function Filter({ values, setValues }) {
-  const initial = {
-    operatingSystem: "",
-    keyboardLayout: "",
-    displaySize: "",
-    modelYear: "",
-    availability: "",
-  };
   const onValueChange = (valueName, value) => {
     setValues({ ...values, [valueName]: value });
   };
@@ -126,6 +125,27 @@ export default function Filter({ values, setValues }) {
               </Select>
             </FormControl>
           </div>
+          <div className="filter__item filter__clear-button">
+            <Button
+              variant="outlined"
+              sx={{
+                position: "absolute",
+                top: "50%",
+                transform: "translate(0, -50%)",
+              }}
+              onClick={() => {
+                setValues({
+                  operatingSystem: "All",
+                  keyboardLayout: "All",
+                  displaySize: "All",
+                  modelYear: "All",
+                  availability: "All",
+                });
+              }}
+            >
+              Clear
+            </Button>
+          </div>
         </div>
       </div>
       <style jsx>{`
@@ -140,6 +160,9 @@ export default function Filter({ values, setValues }) {
           flex: 1;
           padding: 0 10px;
           text-align: left;
+        }
+        .filter__clear-button {
+          position: relative;
         }
       `}</style>
     </>

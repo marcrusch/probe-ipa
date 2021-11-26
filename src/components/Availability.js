@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CalendarPicker, LocalizationProvider, PickersDay } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { addDays, subDays } from "date-fns";
@@ -19,7 +19,6 @@ export default function Availability({ lendPeriods, setAvailable }) {
     );
     if (currentLendPeriods.length) {
       dotAvailability = "current-unavailable";
-      setAvailable(false);
     } else {
       const futureLendPeriods = lendPeriods.filter(
         (lendPeriod) =>
@@ -48,6 +47,10 @@ export default function Availability({ lendPeriods, setAvailable }) {
       unavailableDays.push(...daysToColor);
     });
   }
+
+  useEffect(() => {
+    setAvailable(dotAvailability === "current-unavailable" ? false : true);
+  }, []);
 
   return (
     <>

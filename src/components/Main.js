@@ -20,7 +20,8 @@ export default function Main({ user }) {
   const [snackbar, setSnackbar] = useState(initSnackbar);
   const [activeTab, setActiveTab] = useState("overview");
 
-  const { lendPeriods, onCreate, onDelete, onEdit } = useLendPeriodFlow();
+  const { lendPeriods, onCreate, onDelete, onEdit, onMutate } =
+    useLendPeriodFlow();
 
   const onDatepickerSelect = (values) => {
     setDatepickerValue(values);
@@ -152,7 +153,11 @@ export default function Main({ user }) {
                 selected={datepickerValue ? true : false}
               />
               <DeviceOverview
-                allowLend={datepickerValue ? true : false}
+                allowLend={
+                  datepickerValue && datepickerValue.from && datepickerValue.to
+                    ? true
+                    : false
+                }
                 onRequestLend={onRequestLend}
               />
             </>
@@ -203,11 +208,16 @@ const useLendPeriodFlow = () => {
     await mutate(LENDPERIODS_PATH);
   };
 
+  const onMutate = async () => {
+    await mutate(LENDPERIODS_PATH);
+  };
+
   return {
     lendPeriods,
     onCreate,
     onDelete,
     onEdit,
+    onMutate,
   };
 };
 

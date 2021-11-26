@@ -1,7 +1,8 @@
 import DeviceOverviewEntry from "./DeviceOverviewEntry";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import Filter from "./Filter";
 import { useEffect, useState } from "react";
+import { Button } from "@mui/material";
 
 const DEVICES_PATH = "/api/devices";
 
@@ -77,11 +78,6 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
           color: #fff;
           text-align: center;
         }
-
-        .filter-container {
-          width: 1000px;
-          margin: 0 auto;
-        }
       `}</style>
     </>
   );
@@ -90,6 +86,7 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
 const useDevicesFlow = () => {
   const fetcher = async (url) => await fetch(url).then((res) => res.json());
   const { data: devices } = useSWR(DEVICES_PATH, fetcher);
+
   return {
     devices,
   };

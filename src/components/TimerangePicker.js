@@ -9,11 +9,9 @@ export default function TimerangePicker({ setDatepickerValue }) {
     to: null,
   };
 
-  const [disabled, setDisabled] = useState(false);
-
   const onValueChange = (valueName, value) => {
-    setDisabled(false);
     setValues({ ...values, [valueName]: value });
+    setDatepickerValue({ ...values, [valueName]: value });
   };
 
   const [values, setValues] = useState(initial);
@@ -44,16 +42,15 @@ export default function TimerangePicker({ setDatepickerValue }) {
                 renderInput={(params) => <TextField {...params} />}
               />
             </div>
-            <div className="timerange-picker__select-button">
+            <div className="timerange-picker__clear-button">
               <Button
-                disabled={disabled}
                 variant="outlined"
                 onClick={() => {
-                  setDatepickerValue(values);
-                  setDisabled(true);
+                  setValues(initial);
+                  setDatepickerValue(initial);
                 }}
               >
-                Select
+                Clear
               </Button>
             </div>
           </div>
@@ -66,7 +63,7 @@ export default function TimerangePicker({ setDatepickerValue }) {
         }
 
         .datepicker-wrapper,
-        .timerange-picker__select-button {
+        .timerange-picker__clear-button {
           display: inline-block;
           margin: 10px;
           vertical-align: middle;
