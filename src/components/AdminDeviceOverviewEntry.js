@@ -7,11 +7,20 @@ export default function AdminDeviceOverviewEntry({
   handleEditClick: handleEditClickProp,
   lendPeriods,
   availabilityFiltered,
+  pushUnavailable,
 }) {
   const onClick = () => {
     handleEditClickProp(device);
   };
   const [available, setAvailable] = useState(true);
+
+  const onAvailableChange = (val) => {
+    if (!val) {
+      pushUnavailable(device._id);
+    }
+    setAvailable(val);
+  };
+
   return (
     <>
       {((availabilityFiltered && available) || !availabilityFiltered) && (
@@ -20,7 +29,7 @@ export default function AdminDeviceOverviewEntry({
             <Device
               device={device}
               lendPeriods={lendPeriods}
-              setAvailable={setAvailable}
+              setAvailable={onAvailableChange}
             />
           </div>
           <div className="device-overview-entry__operation-wrapper">

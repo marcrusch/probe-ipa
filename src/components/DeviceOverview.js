@@ -18,6 +18,24 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
 
   const [values, setValues] = useState(initial);
 
+  const [sort, setSort] = useState({
+    property: "",
+    ascending: true,
+  });
+
+  const handleSortClick = (val) => {
+    if (sort.property.length) {
+      if (val === sort.property) {
+        setSort({ ...sort, ascending: !sort.ascending });
+        return;
+      }
+    }
+    setSort({
+      property: val,
+      ascending: true,
+    });
+  };
+
   return (
     <>
       <div className="filter-container">
@@ -25,18 +43,78 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
       </div>
       <div className="device-overview">
         <div className="device-overview__header">
-          <div className="device-overview__header-item">#</div>
-          <div className="device-overview__header-item">Operating System</div>
-          <div className="device-overview__header-item">Keyboard Layout</div>
-          <div className="device-overview__header-item">Display Size</div>
-          <div className="device-overview__header-item">Model Year</div>
-          <div className="device-overview__header-item">Comment</div>
-          <div className="device-overview__header-item">Availability</div>
+          <div
+            className="device-overview__header-item"
+            onClick={() => {
+              handleSortClick("_id");
+            }}
+          >
+            #
+          </div>
+          <div
+            className="device-overview__header-item"
+            onClick={() => {
+              handleSortClick("operatingSystem");
+            }}
+          >
+            Operating System
+          </div>
+          <div
+            className="device-overview__header-item"
+            onClick={() => {
+              handleSortClick("keyboardLayout");
+            }}
+          >
+            Keyboard Layout
+          </div>
+          <div
+            className="device-overview__header-item"
+            onClick={() => {
+              handleSortClick("displaySize");
+            }}
+          >
+            Display Size
+          </div>
+          <div
+            className="device-overview__header-item"
+            onClick={() => {
+              handleSortClick("modelYear");
+            }}
+          >
+            Model Year
+          </div>
+          <div
+            className="device-overview__header-item"
+            onClick={() => {
+              handleSortClick("comment");
+            }}
+          >
+            Comment
+          </div>
+          <div
+            className="device-overview__header-item"
+            onClick={() => {
+              handleSortClick("availability");
+            }}
+          >
+            Availability
+          </div>
           <div className="device-overview__header-item"></div>
         </div>
         <div className="device-overview__main">
           {devices
             ? devices
+                .sort((a, b) =>
+                  sort.property !== "availability"
+                    ? sort.ascending
+                      ? a[sort.property] > b[sort.property]
+                        ? -1
+                        : 1
+                      : a[sort.property] > b[sort.property]
+                      ? 1
+                      : -1
+                    : 1
+                )
                 .filter(
                   (item) =>
                     (item.operatingSystem === values.operatingSystem ||

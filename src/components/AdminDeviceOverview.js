@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import AdminDeviceOverviewEntry from "./AdminDeviceOverviewEntry";
 import Filter from "./Filter";
@@ -33,6 +33,15 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
     });
   };
 
+  const [unavailable, setUnavailable] = useState([]);
+
+  const pushUnavailable = (deviceId) => {
+    setUnavailable[unavailable.push(deviceId)];
+  };
+
+  useEffect(() => {
+    console.log(unavailable);
+  }, [unavailable]);
   return (
     <>
       <div className="filter-container">
@@ -43,7 +52,7 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
           <div
             className="admin-device-overview__header-item"
             onClick={() => {
-              handleSortClick("id");
+              handleSortClick("_id");
             }}
           >
             #
@@ -100,15 +109,45 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
         </div>
         <div className="admin-device-overview__main">
           {devices
-            ? devices.map((device) => (
-                <AdminDeviceOverviewEntry
-                  device={device}
-                  handleEditClick={handleEditClick}
-                  key={`device_${device._id}`}
-                  lendPeriods={device.lendPeriods.data}
-                  availabilityFiltered={values.availability !== "All"}
-                />
-              ))
+            ? devices
+                .sort((a, b) =>
+                  sort.property !== "availability"
+                    ? sort.ascending
+                      ? a[sort.property] > b[sort.property]
+                        ? -1
+                        : 1
+                      : a[sort.property] > b[sort.property]
+                      ? 1
+                      : -1
+                    : sort.ascending
+                    ? unavailable.indexOf(a._id) > unavailable.indexOf(b._id)
+                      ? 1
+                      : -1
+                    : unavailable.indexOf(a._id) > unavailable.indexOf(b._id)
+                    ? -1
+                    : 1
+                )
+                .filter(
+                  (item) =>
+                    (item.operatingSystem === values.operatingSystem ||
+                      values.operatingSystem === "All") &&
+                    (item.keyboardLayout === values.keyboardLayout ||
+                      values.keyboardLayout === "All") &&
+                    (item.displaySize === values.displaySize ||
+                      values.displaySize === "All") &&
+                    (item.modelYear === values.modelYear ||
+                      values.modelYear === "All")
+                )
+                .map((device) => (
+                  <AdminDeviceOverviewEntry
+                    device={device}
+                    handleEditClick={handleEditClick}
+                    key={`device_${device._id}`}
+                    lendPeriods={device.lendPeriods.data}
+                    availabilityFiltered={values.availability !== "All"}
+                    pushUnavailable={pushUnavailable}
+                  />
+                ))
             : ""}
         </div>
       </div>
@@ -128,6 +167,7 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
           padding: 20px;
           color: #fff;
           text-align: center;
+          cursor: pointer;
         }
       `}</style>
     </>

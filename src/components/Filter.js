@@ -79,7 +79,7 @@ export default function Filter({ values, setValues }) {
                 </MenuItem>
                 {valuesConfig.displaySize.map((item) => (
                   <MenuItem value={item} key={`menuItem__${item}`}>
-                    {item}
+                    {item.slice(5)}"
                   </MenuItem>
                 ))}
               </Select>
@@ -99,7 +99,7 @@ export default function Filter({ values, setValues }) {
                 </MenuItem>
                 {valuesConfig.modelYear.map((item) => (
                   <MenuItem value={item} key={`menuItem__${item}`}>
-                    {item}
+                    {item.slice(5)}
                   </MenuItem>
                 ))}
               </Select>
