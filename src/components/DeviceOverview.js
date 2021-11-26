@@ -87,6 +87,10 @@ const useDevicesFlow = () => {
   const fetcher = async (url) => await fetch(url).then((res) => res.json());
   const { data: devices } = useSWR(DEVICES_PATH, fetcher);
 
+  const onMutate = async () => {
+    await mutate();
+  };
+
   return {
     devices,
   };

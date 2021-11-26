@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
 import DeviceOverview from "./DeviceOverview";
@@ -8,6 +8,7 @@ import TabNavigation from "./TabNavigation";
 import TimerangePicker from "./TimerangePicker";
 
 const LENDPERIODS_PATH = "/api/lendPeriods";
+const DEVICES_PATH = "/api/devices";
 
 export default function Main({ user }) {
   const initSnackbar = {
@@ -20,8 +21,7 @@ export default function Main({ user }) {
   const [snackbar, setSnackbar] = useState(initSnackbar);
   const [activeTab, setActiveTab] = useState("overview");
 
-  const { lendPeriods, onCreate, onDelete, onEdit, onMutate } =
-    useLendPeriodFlow();
+  const { lendPeriods, onCreate, onDelete, onEdit } = useLendPeriodFlow();
 
   const onDatepickerSelect = (values) => {
     setDatepickerValue(values);
@@ -121,6 +121,10 @@ export default function Main({ user }) {
     }
   };
 
+  const handleSync = () => {
+    mutate(LENDPERIODS_PATH);
+    mutate(DEVICES_PATH);
+  };
   return (
     <>
       <Snackbar
@@ -145,6 +149,11 @@ export default function Main({ user }) {
               setActiveTab={setActiveTab}
               activeTab={activeTab}
             />
+            <div className="sync-button">
+              <Button variant="outlined" onClick={() => handleSync()}>
+                Sync
+              </Button>
+            </div>
           </div>
           {activeTab === "overview" && (
             <>
@@ -183,6 +192,9 @@ export default function Main({ user }) {
         .tab-navigation-wrapper {
           text-align: center;
         }
+        .sync-button {
+          text-align: right;
+        }
       `}</style>
     </>
   );
@@ -208,16 +220,11 @@ const useLendPeriodFlow = () => {
     await mutate(LENDPERIODS_PATH);
   };
 
-  const onMutate = async () => {
-    await mutate(LENDPERIODS_PATH);
-  };
-
   return {
     lendPeriods,
     onCreate,
     onDelete,
     onEdit,
-    onMutate,
   };
 };
 

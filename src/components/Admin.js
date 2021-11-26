@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 import { useState } from "react";
 import useSWR, { mutate } from "swr";
 import AdminDeviceOverview from "./AdminDeviceOverview";
@@ -131,6 +131,11 @@ export default function Admin({
     }
   };
 
+  const handleSync = () => {
+    mutate(LENDPERIODS_PATH);
+    mutate(DEVICES_PATH);
+  };
+
   return (
     <>
       <Snackbar
@@ -163,6 +168,11 @@ export default function Admin({
               activeTab={activeTab}
             />
           </div>
+          <div className="sync-button">
+            <Button variant="outlined" onClick={() => handleSync()}>
+              Sync
+            </Button>
+          </div>
           {activeTab === "overview" && (
             <>
               <AdminDeviceOverview
@@ -194,6 +204,9 @@ export default function Admin({
         .main-content {
           width: 100vw;
           padding: 25px 5vw;
+        }
+        .sync-button {
+          text-align: right;
         }
       `}</style>
     </>
