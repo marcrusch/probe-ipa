@@ -40,7 +40,7 @@ export default function AdminDeviceOverviewEntry({
                 right: "0",
                 top: "50%",
                 transform: "translate(0, -50%)",
-                width: "150px",
+                width: "100%",
               }}
               variant="contained"
             >
@@ -55,11 +55,19 @@ export default function AdminDeviceOverviewEntry({
         }
 
         .device-overview-entry__device-wrapper {
-          flex: 1;
+          flex: 7;
         }
 
         .device-overview-entry__operation-wrapper {
           position: relative;
+          width: 100%;
+          flex: 1;
+        }
+
+        @media screen and (max-width: 1024px) {
+          .device-overview__header {
+            display: none;
+          }
         }
       `}</style>
     </>

@@ -36,6 +36,12 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
     });
   };
 
+  const [unavailable, setUnavailable] = useState([]);
+
+  const pushUnavailable = (deviceId) => {
+    setUnavailable[unavailable.push(deviceId)];
+  };
+
   return (
     <>
       <div className="filter-container">
@@ -113,6 +119,12 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
                       : a[sort.property] > b[sort.property]
                       ? 1
                       : -1
+                    : sort.ascending
+                    ? unavailable.indexOf(a._id) > unavailable.indexOf(b._id)
+                      ? 1
+                      : -1
+                    : unavailable.indexOf(a._id) > unavailable.indexOf(b._id)
+                    ? -1
                     : 1
                 )
                 .filter(
@@ -134,6 +146,7 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
                     key={`device_${device._id}`}
                     lendPeriods={device.lendPeriods.data}
                     availabilityFiltered={values.availability !== "All"}
+                    pushUnavailable={pushUnavailable}
                   />
                 ))
             : ""}
@@ -155,6 +168,13 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
           padding: 20px;
           color: #fff;
           text-align: center;
+          cursor: pointer;
+        }
+
+        @media screen and (max-width: 1024px) {
+          .device-overview__header {
+            display: none;
+          }
         }
       `}</style>
     </>

@@ -39,9 +39,6 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
     setUnavailable[unavailable.push(deviceId)];
   };
 
-  useEffect(() => {
-    console.log(unavailable);
-  }, [unavailable]);
   return (
     <>
       <div className="filter-container">

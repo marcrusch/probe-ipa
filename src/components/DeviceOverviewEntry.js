@@ -8,6 +8,7 @@ export default function DeviceOverviewEntry({
   allowLend,
   lendPeriods,
   availabilityFiltered,
+  pushUnavailable,
 }) {
   const onRequestLend = (e) => {
     e.preventDefault();
@@ -15,6 +16,13 @@ export default function DeviceOverviewEntry({
   };
 
   const [available, setAvailable] = useState(true);
+
+  const onAvailableChange = (val) => {
+    if (!val) {
+      pushUnavailable(device._id);
+    }
+    setAvailable(val);
+  };
 
   return (
     <>
@@ -24,7 +32,7 @@ export default function DeviceOverviewEntry({
             <Device
               device={device}
               lendPeriods={lendPeriods}
-              setAvailable={setAvailable}
+              setAvailable={onAvailableChange}
             />
           </div>
           <div className="device-overview-entry__operation-wrapper">
@@ -51,11 +59,22 @@ export default function DeviceOverviewEntry({
         }
 
         .device-overview-entry__device-wrapper {
-          flex: 1;
+          flex: 7;
         }
 
         .device-overview-entry__operation-wrapper {
           position: relative;
+          width: 100%;
+          flex: 1;
+        }
+
+        @media screen and (max-width: 1024px) {
+          .device-overview-entry {
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+          }
         }
       `}</style>
     </>

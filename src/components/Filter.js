@@ -164,6 +164,17 @@ export default function Filter({ values, setValues }) {
         .filter__clear-button {
           position: relative;
         }
+
+        @media screen and (max-width: 768px) {
+          .filter__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .filter__item {
+            margin: 10px;
+          }
+        }
       `}</style>
     </>
   );
