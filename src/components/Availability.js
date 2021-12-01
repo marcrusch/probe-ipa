@@ -12,7 +12,6 @@ export default function Availability({ lendPeriods, setAvailable }) {
     const currentLendPeriods = lendPeriods.filter(
       (lendPeriod) =>
         lendPeriod.startTs <= currentTimestamp &&
-        lendPeriod.endTs >= currentTimestamp &&
         (lendPeriod.lendState === "LEND_APPROVED" ||
           lendPeriod.lendState === "RETURNED" ||
           lendPeriod.lendState === "REQUESTED")

@@ -30,8 +30,12 @@ export default function ApprovalOverviewEntry({
     <>
       <div className="approval-overview-entry">
         <div className="approval-overview-entry__item">{approval._id}</div>
-        <div className="approval-overview-entry__item">{approval.startTs}</div>
-        <div className="approval-overview-entry__item">{approval.endTs}</div>
+        <div className="approval-overview-entry__item">
+          {new Date(approval.startTs).toLocaleDateString()}
+        </div>
+        <div className="approval-overview-entry__item">
+          {new Date(approval.endTs).toLocaleDateString()}
+        </div>
         <div className="approval-overview-entry__item">
           {approval.lendState}
         </div>
@@ -67,6 +71,28 @@ export default function ApprovalOverviewEntry({
 
         .approval-overview-entry__approve-container {
           position: relative;
+        }
+
+        @media screen and (max-width: 1024px) {
+          .approval-overview-entry {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+          }
+
+          .approval-overview-entry__approve-container {
+            height: 60px;
+            text-align: center;
+          }
+        }
+
+        @media screen and (max-width: 480px) {
+          .approval-overview-entry {
+            grid-template-columns: repeat(1, 1fr);
+          }
         }
       `}</style>
     </>

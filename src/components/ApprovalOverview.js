@@ -41,6 +41,12 @@ export default function ApprovalOverview({ approvals, onApprove, onDelete }) {
           color: #fff;
           text-align: center;
         }
+
+        @media screen and (max-width: 1024px) {
+          .approval-overview__header {
+            display: none;
+          }
+        }
       `}</style>
     </>
   );

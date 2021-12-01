@@ -69,6 +69,27 @@ export default function LendPeriod({ lendPeriod, onDelete, onReturn }) {
         .lend-period__button {
           text-align: right;
         }
+
+        @media screen and (max-width: 1024px) {
+          .lend-period {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+          }
+
+          .lend-period__button {
+            height: 60px;
+            text-align: center;
+          }
+        }
+        @media screen and (max-width: 480px) {
+          .lend-period {
+            grid-template-columns: repeat(1, 1fr);
+          }
+        }
       `}</style>
     </>
   );

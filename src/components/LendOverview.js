@@ -48,6 +48,12 @@ export default function LendOverview({
           color: #fff;
           text-align: center;
         }
+
+        @media screen and (max-width: 1024px) {
+          .lend-overview__header {
+            display: none;
+          }
+        }
       `}</style>
     </>
   );

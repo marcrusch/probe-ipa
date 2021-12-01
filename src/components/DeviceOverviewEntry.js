@@ -44,7 +44,7 @@ export default function DeviceOverviewEntry({
                 right: "0",
                 top: "50%",
                 transform: "translate(0, -50%)",
-                width: "150px",
+                width: "100%",
               }}
               variant="contained"
             >
@@ -74,6 +74,11 @@ export default function DeviceOverviewEntry({
             border-radius: 10px;
             padding: 10px;
             margin: 10px;
+            display: block;
+          }
+
+          .device-overview-entry__operation-wrapper {
+            height: 30px;
           }
         }
       `}</style>

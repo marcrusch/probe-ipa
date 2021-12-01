@@ -25,14 +25,14 @@ export default function AdminDeviceOverviewEntry({
     <>
       {((availabilityFiltered && available) || !availabilityFiltered) && (
         <div className="device-overview-entry">
-          <div className="device-overview-entry__device-wrapper">
+          <div className="device-overview-entry__device-wrapper device-overview-entry__item">
             <Device
               device={device}
               lendPeriods={lendPeriods}
               setAvailable={onAvailableChange}
             />
           </div>
-          <div className="device-overview-entry__operation-wrapper">
+          <div className="device-overview-entry__operation-wrapper device-overview-entry__item">
             <Button
               onClick={onClick}
               sx={{
@@ -65,8 +65,16 @@ export default function AdminDeviceOverviewEntry({
         }
 
         @media screen and (max-width: 1024px) {
-          .device-overview__header {
-            display: none;
+          .device-overview-entry {
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            display: block;
+          }
+
+          .device-overview-entry__operation-wrapper {
+            height: 30px;
           }
         }
       `}</style>

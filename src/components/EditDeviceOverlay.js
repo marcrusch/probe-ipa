@@ -195,7 +195,7 @@ export default function EditDeviceOverlay({
       </div>
       <style jsx>{`
         .edit-device-overlay {
-          position: absolute;
+          position: fixed;
           width: 100vw;
           height: 100vh;
           background-color: #ffffffaa;

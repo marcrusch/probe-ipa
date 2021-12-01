@@ -166,6 +166,12 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
           text-align: center;
           cursor: pointer;
         }
+
+        @media screen and (max-width: 1024px) {
+          .admin-device-overview__header {
+            display: none;
+          }
+        }
       `}</style>
     </>
   );
