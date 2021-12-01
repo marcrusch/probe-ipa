@@ -1,21 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## 1. Dependencies installieren
+## Dependencies installieren
 
 ```bash
 npm install
 ```
 
-## 2. Applikation starten
-
-Production Build der Applikation erstellen:
+## Dev Build starten
 
 ```bash
-npm run build
+npm run dev
 ```
 
-Build auf Localhost ausführen:
+## Aufbau
 
-```bash
-npm run start
-```
+Alle Komponenten befinden sich unter /src/components/. Alle Files zur API befinden sich unter /pages/api/, welche auf die Fauna-Funktionen unter /lib/fauna.js zugreifen.
+Das GraphQL-Schema ist unter /schema.gql zu finden.
+
+Die globale CSS-Datei ist styles/globals.css.
+
+Diverse Configs sind unter /src/config zu finden.
