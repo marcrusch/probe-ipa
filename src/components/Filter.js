@@ -79,7 +79,7 @@ export default function Filter({ values, setValues }) {
                 </MenuItem>
                 {valuesConfig.displaySize.map((item) => (
                   <MenuItem value={item} key={`menuItem__${item}`}>
-                    {item.slice(5)}"
+                    {item.slice(5)}&quot;
                   </MenuItem>
                 ))}
               </Select>

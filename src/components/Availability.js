@@ -49,7 +49,7 @@ export default function Availability({ lendPeriods, setAvailable }) {
 
   useEffect(() => {
     setAvailable(dotAvailability === "current-unavailable" ? false : true);
-  }, []);
+  }, [setAvailable, dotAvailability]);
 
   return (
     <>
