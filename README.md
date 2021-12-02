@@ -4,6 +4,10 @@
 npm install
 ```
 
+## API-Key hinterlegen
+
+Damit die Applikation Zugriff auf die Datenbank erhält, muss der Admin-API-Key von Fauna in der .env.local Datei hinterlegt werden. Zugriffsberechtigte Personen sollten in Fauna einen neuen Key anlegen, welcher die benötigten Berechtigungen vergibt. Der Key sollte in .env.local mit dem Namen FAUNA_ADMIN_KEY hinterlegt werden, sodass die Applikation den Schlüssel korrekt einliest.
+
 ## Dev Build starten
 
 ```bash
