@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import LendPeriod from "./LendPeriod";
 
 export default function ApprovalOverviewEntry({
   approval,
@@ -26,6 +25,23 @@ export default function ApprovalOverviewEntry({
     }
   };
 
+  const onDeny = () => {
+    if (approval.lendState === "RETURNED") {
+      onApproveProp({
+        id: approval._id,
+        data: {
+          startTs: approval.startTs,
+          endTs: approval.endTs,
+          deviceId: approval.device._id,
+          lendState: "LEND_APPROVED",
+          user: approval.user,
+        },
+      });
+    } else if (approval.lendState === "REQUESTED") {
+      onDeleteProp({ id: approval._id });
+    }
+  };
+
   return (
     <>
       <div className="approval-overview-entry">
@@ -47,14 +63,24 @@ export default function ApprovalOverviewEntry({
           <Button
             variant="contained"
             sx={{
-              position: "absolute",
-              right: "0",
-              top: "50%",
-              transform: "translate(0, -50%)",
+              display: "inline",
+              marginRight: "10px",
+              marginBottom: "10px",
             }}
             onClick={onApprove}
           >
             Approve
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              display: "inline",
+              marginRight: "10px",
+              marginBottom: "10px",
+            }}
+            onClick={onDeny}
+          >
+            Deny
           </Button>
         </div>
       </div>

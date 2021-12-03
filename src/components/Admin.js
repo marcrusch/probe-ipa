@@ -103,7 +103,7 @@ export default function Admin({
       setSnackbar({
         ...snackbar,
         open: true,
-        alert: "Approved successfully!",
+        alert: "Operation successfully completed!",
       });
     } catch {
       setSnackbar({
