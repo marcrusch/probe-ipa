@@ -108,6 +108,12 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
           <div className="device-overview__header-item"></div>
         </div>
         <div className="device-overview__main">
+          {devices && !devices.length && (
+            <p className="device-overview__error-message">
+              Sorry, currently no devices exist! Create a device or contact your
+              administrator to get started.
+            </p>
+          )}
           {devices
             ? devices
                 .sort((a, b) =>
@@ -169,6 +175,17 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
           color: #fff;
           text-align: center;
           cursor: pointer;
+        }
+
+        .device-overview__main {
+          position: relative;
+        }
+
+        .device-overview__error-message {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
         }
 
         @media screen and (max-width: 1024px) {

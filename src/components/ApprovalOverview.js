@@ -14,6 +14,11 @@ export default function ApprovalOverview({ approvals, onApprove, onDelete }) {
           <div className="approval-overview__header-item"></div>
         </div>
         <div className="approval-overview__main">
+          {approvals && !approvals.length && (
+            <p className="approval-overview__error-message">
+              No approvals required!
+            </p>
+          )}
           {approvals.map((approval, index) => (
             <ApprovalOverviewEntry
               approval={approval}
@@ -40,6 +45,17 @@ export default function ApprovalOverview({ approvals, onApprove, onDelete }) {
           padding: 20px;
           color: #fff;
           text-align: center;
+        }
+
+        .approval-overview__main {
+          position: relative;
+        }
+
+        .approval-overview__error-message {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
         }
 
         @media screen and (max-width: 1024px) {

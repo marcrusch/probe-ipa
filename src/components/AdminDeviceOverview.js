@@ -105,6 +105,12 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
           <div className="admin-device-overview__header-item"></div>
         </div>
         <div className="admin-device-overview__main">
+          {devices && !devices.length && (
+            <p className="admin-device-overview__error-message">
+              Sorry, currently no devices exist! Create a device or contact your
+              administrator to get started.
+            </p>
+          )}
           {devices
             ? devices
                 .sort((a, b) =>
@@ -165,6 +171,17 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
           color: #fff;
           text-align: center;
           cursor: pointer;
+        }
+
+        .admin-device-overview__main {
+          position: relative;
+        }
+
+        .admin-device-overview__error-message {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
         }
 
         @media screen and (max-width: 1024px) {
