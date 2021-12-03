@@ -127,7 +127,7 @@ export default function EditDeviceOverlay({
                 >
                   {valuesConfig.displaySize.map((item) => (
                     <MenuItem value={item} key={`menuItem__${item}`}>
-                      {item}
+                      {item.slice(5) + '"'}
                     </MenuItem>
                   ))}
                 </Select>
@@ -144,7 +144,7 @@ export default function EditDeviceOverlay({
                 >
                   {valuesConfig.modelYear.map((item) => (
                     <MenuItem value={item} key={`menuItem__${item}`}>
-                      {item}
+                      {item.slice(5)}
                     </MenuItem>
                   ))}
                 </Select>
@@ -154,6 +154,7 @@ export default function EditDeviceOverlay({
               <TextField
                 placeholder="Comment"
                 label="Comment"
+                fullWidth
                 value={values.comment}
                 onChange={(e) => onValueChange("comment", e.target.value)}
               />

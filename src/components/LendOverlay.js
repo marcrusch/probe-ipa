@@ -18,9 +18,13 @@ export default function LendOverlay({
             <p className="lend-overlay__info-label">Keyboard Layout</p>
             <p className="lend-overlay__info-item">{device.keyboardLayout}</p>
             <p className="lend-overlay__info-label">Display Size</p>
-            <p className="lend-overlay__info-item">{device.displaySize}</p>
+            <p className="lend-overlay__info-item">
+              {device.displaySize.slice(5) + '"'}
+            </p>
             <p className="lend-overlay__info-label">Model Year</p>
-            <p className="lend-overlay__info-item">{device.modelYear}</p>
+            <p className="lend-overlay__info-item">
+              {device.modelYear.slice(5)}
+            </p>
           </div>
           <h2 className="lend-overlay__title">Lend</h2>
           <div className="lend-overlay__grid">

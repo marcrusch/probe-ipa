@@ -21,6 +21,11 @@ export default function Main({ user }) {
   const [snackbar, setSnackbar] = useState(initSnackbar);
   const [activeTab, setActiveTab] = useState("overview");
 
+  const changeTab = (tab) => {
+    setDatepickerValue();
+    setActiveTab(tab);
+  };
+
   const { lendPeriods, onCreate, onDelete, onEdit } = useLendPeriodFlow();
 
   const onDatepickerSelect = (values) => {
@@ -146,7 +151,7 @@ export default function Main({ user }) {
           <div className="tab-navigation-wrapper">
             <TabNavigation
               user={user}
-              setActiveTab={setActiveTab}
+              setActiveTab={changeTab}
               activeTab={activeTab}
             />
             <div className="sync-button">

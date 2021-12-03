@@ -33,7 +33,11 @@ export default function Device({ device, lendPeriods, setAvailable }) {
           {device.displaySize.slice(5) + '"'}
         </div>
         <div className="device__info-item">{device.modelYear.slice(5)}</div>
-        <div className="device__info-item">{device.comment}</div>
+        <div className="device__info-item" title={device.comment}>
+          {device.comment.length > 10
+            ? device.comment.slice(0, 10) + "..."
+            : device.comment}
+        </div>
         <div className="device__info-item">
           <Availability lendPeriods={lendPeriods} setAvailable={setAvailable} />
         </div>

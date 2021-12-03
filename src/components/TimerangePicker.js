@@ -1,7 +1,9 @@
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Button, TextField } from "@mui/material";
+import { addYears } from "date-fns";
 import { useState } from "react";
+import enLocale from "date-fns/locale/en-GB";
 
 export default function TimerangePicker({ setDatepickerValue }) {
   const initial = {
@@ -20,11 +22,13 @@ export default function TimerangePicker({ setDatepickerValue }) {
     <>
       <div className="timerange-picker">
         <h2 className="timerange-picker__title">Select lend timerange</h2>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
           <div className="timerange-picker__container">
             <div className="datepicker-wrapper">
               <DatePicker
                 label="From"
+                minDate={new Date().getTime()}
+                maxDate={addYears(new Date(), 1).getTime()}
                 value={values.from}
                 onChange={(newValue) => {
                   onValueChange("from", newValue);
@@ -35,6 +39,8 @@ export default function TimerangePicker({ setDatepickerValue }) {
             <div className="datepicker-wrapper">
               <DatePicker
                 label="To"
+                minDate={new Date().getTime()}
+                maxDate={addYears(new Date(), 1).getTime()}
                 value={values.to}
                 onChange={(newValue) => {
                   onValueChange("to", newValue);

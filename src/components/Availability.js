@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CalendarPicker, LocalizationProvider, PickersDay } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { addDays, subDays } from "date-fns";
+import enLocale from "date-fns/locale/en-GB";
 
 export default function Availability({ lendPeriods, setAvailable }) {
   const [displayOverlay, setDisplayOverlay] = useState(false);
@@ -67,12 +68,16 @@ export default function Availability({ lendPeriods, setAvailable }) {
         ></div>
         {displayOverlay && (
           <div className="availability__overview">
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <LocalizationProvider
+              dateAdapter={AdapterDateFns}
+              locale={enLocale}
+            >
               <CalendarPicker
                 onChange={() => {}}
                 onDaySelect={() => {}}
                 outsideCurrentMonth={false}
                 readOnly
+                minDate={new Date().getTime()}
                 renderDay={(day) => {
                   if (unavailableDays.indexOf(day.getTime()) !== -1) {
                     return (

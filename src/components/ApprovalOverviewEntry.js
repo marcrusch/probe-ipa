@@ -52,12 +52,12 @@ export default function ApprovalOverviewEntry({
         <div className="approval-overview-entry__item">
           {new Date(approval.endTs).toLocaleDateString()}
         </div>
-        <div className="approval-overview-entry__item">
-          {approval.lendState}
-        </div>
         <div className="approval-overview-entry__item">{approval.user}</div>
         <div className="approval-overview-entry__item">
           {approval.device._id}
+        </div>
+        <div className="approval-overview-entry__item">
+          {approval.lendState}
         </div>
         <div className="approval-overview-entry__item approval-overview-entry__approve-container">
           <Button

@@ -27,13 +27,13 @@ export default function LendPeriod({ lendPeriod, onDelete, onReturn }) {
         <div className="lend-period__item">
           {new Date(lendPeriod.endTs).toLocaleDateString()}
         </div>
-        <div className="lend-period__item">{lendPeriod.lendState}</div>
         <div className="lend-period__item">
           {lendPeriod.device.operatingSystem}
         </div>
         <div className="lend-period__item">
           {lendPeriod.device.displaySize.slice(5) + '"'}
         </div>
+        <div className="lend-period__item">{lendPeriod.lendState}</div>
         <div className="lend-period__item lend-period__button">
           {lendPeriod.lendState === "REQUESTED" && (
             <Button
@@ -51,6 +51,11 @@ export default function LendPeriod({ lendPeriod, onDelete, onReturn }) {
               onClick={handleReturnClick}
             >
               Return
+            </Button>
+          )}
+          {lendPeriod.lendState === "RETURNED" && (
+            <Button sx={{ marginRight: "-20px" }} variant="contained" disabled>
+              Return pending
             </Button>
           )}
         </div>

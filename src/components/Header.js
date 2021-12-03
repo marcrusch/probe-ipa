@@ -26,6 +26,7 @@ export default function Header({
         {userInfo.role === "admin" && (
           <div className="header__child">
             <Button
+              variant="contained"
               className="header__child"
               onClick={() => setDisplayCreateDeviceOverlay(true)}
             >
