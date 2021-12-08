@@ -139,6 +139,29 @@ export default function Availability({ lendPeriods, setAvailable }) {
           z-index: 10;
           border-radius: 10px;
         }
+
+        .color-index__color {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          display: inline-block;
+        }
+
+        .color-index__description {
+          display: inline-block;
+          margin-left: 20px;
+        }
+
+        .color-index {
+          display: flex;
+          width: 600px;
+          float: right;
+          margin-top: 100px;
+        }
+
+        .color-index__item {
+          flex: 1;
+        }
       `}</style>
     </>
   );

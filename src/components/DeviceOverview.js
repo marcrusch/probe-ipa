@@ -14,6 +14,21 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
     modelYear: "All",
     availability: "All",
   };
+
+  const colors = [
+    {
+      description: "Always available",
+      color: "#00ff00",
+    },
+    {
+      description: "Currently unavailable",
+      color: "#ff0000",
+    },
+    {
+      description: "Currently available",
+      color: "#ffa500",
+    },
+  ];
   const { devices } = useDevicesFlow();
 
   const [values, setValues] = useState(initial);
@@ -104,6 +119,19 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
                 ))
             : ""}
         </div>
+        <div className="color-index">
+          {colors.map((item) => {
+            return (
+              <div className="color-index__item">
+                <div
+                  className="color-index__color"
+                  style={{ backgroundColor: item.color }}
+                />
+                <p className="color-index__description">{item.description}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
       <style jsx>{`
         .device-overview {
@@ -119,6 +147,29 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50%);
+        }
+
+        .color-index__color {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          display: inline-block;
+        }
+
+        .color-index__description {
+          display: inline-block;
+          margin-left: 10px;
+        }
+
+        .color-index {
+          display: flex;
+          width: 600px;
+          float: right;
+          margin-top: 100px;
+        }
+
+        .color-index__item {
+          flex: 1;
         }
       `}</style>
     </>

@@ -49,7 +49,7 @@ export default function OverviewHeader({ handleSortClick, currentSort }) {
                 <FontAwesomeIcon
                   style={{
                     position: "absolute",
-                    right: 0,
+                    right: "10px",
                     top: "50%",
                     transform: "translate(0, -50%)",
                   }}

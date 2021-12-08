@@ -44,7 +44,7 @@ export default function Admin({
             await onDeleteLendPeriod({ id: item._id });
           });
       }
-      const deleted = await onDelete(payload);
+      await onDelete(payload);
       setSnackbar({ ...snackbar, open: true });
       setSelectedDevice(false);
     } catch {
@@ -58,7 +58,7 @@ export default function Admin({
 
   const handleDeviceEdit = async (payload) => {
     try {
-      const edited = await onEdit(payload);
+      await onEdit(payload);
       setSnackbar({
         ...snackbar,
         open: true,
@@ -81,7 +81,7 @@ export default function Admin({
 
   const handleDeviceCreate = async (payload) => {
     try {
-      const created = await onCreate(payload);
+      await onCreate(payload);
       setSnackbar({
         ...snackbar,
         open: true,
@@ -99,7 +99,7 @@ export default function Admin({
 
   const handleApproval = async (payload) => {
     try {
-      const edited = await onEditLendPeriod(payload);
+      await onEditLendPeriod(payload);
       setSnackbar({
         ...snackbar,
         open: true,
@@ -116,7 +116,7 @@ export default function Admin({
 
   const handleLendPeriodDeletion = async (payload) => {
     try {
-      const deleted = await onDeleteLendPeriod(payload);
+      await onDeleteLendPeriod(payload);
       setSnackbar({
         ...snackbar,
         open: true,
