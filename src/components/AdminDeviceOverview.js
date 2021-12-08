@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AdminDeviceOverviewEntry from "./AdminDeviceOverviewEntry";
+import ColorIndex from "./ColorIndex";
 import Filter from "./Filter";
 import OverviewHeader from "./OverviewHeader";
 
@@ -113,19 +114,7 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
                 ))
             : ""}
         </div>
-        <div className="color-index">
-          {colors.map((item) => {
-            return (
-              <div className="color-index__item">
-                <div
-                  className="color-index__color"
-                  style={{ backgroundColor: item.color }}
-                />
-                <p className="color-index__description">{item.description}</p>
-              </div>
-            );
-          })}
-        </div>
+        <ColorIndex />
       </div>
       <style jsx>{`
         .admin-device-overview {
@@ -141,29 +130,6 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50%);
-        }
-
-        .color-index__color {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          display: inline-block;
-        }
-
-        .color-index__description {
-          display: inline-block;
-          margin-left: 20px;
-        }
-
-        .color-index {
-          display: flex;
-          width: 600px;
-          float: right;
-          margin-top: 100px;
-        }
-
-        .color-index__item {
-          flex: 1;
         }
 
         @media screen and (max-width: 1024px) {

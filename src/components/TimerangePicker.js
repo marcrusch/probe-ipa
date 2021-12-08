@@ -39,7 +39,7 @@ export default function TimerangePicker({ setDatepickerValue }) {
             <div className="datepicker-wrapper">
               <DatePicker
                 label="To"
-                minDate={new Date().getTime()}
+                minDate={values.from || new Date().getTime()}
                 maxDate={addYears(new Date(), 1).getTime()}
                 value={values.to}
                 onChange={(newValue) => {
