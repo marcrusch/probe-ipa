@@ -3,6 +3,7 @@ import useSWR, { mutate } from "swr";
 import Filter from "./Filter";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
+import OverviewHeader from "./OverviewHeader";
 
 const DEVICES_PATH = "/api/devices";
 
@@ -48,65 +49,7 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
         <Filter setValues={setValues} values={values} />
       </div>
       <div className="device-overview">
-        <div className="device-overview__header">
-          <div
-            className="device-overview__header-item"
-            onClick={() => {
-              handleSortClick("_id");
-            }}
-          >
-            #
-          </div>
-          <div
-            className="device-overview__header-item"
-            onClick={() => {
-              handleSortClick("operatingSystem");
-            }}
-          >
-            Operating System
-          </div>
-          <div
-            className="device-overview__header-item"
-            onClick={() => {
-              handleSortClick("keyboardLayout");
-            }}
-          >
-            Keyboard Layout
-          </div>
-          <div
-            className="device-overview__header-item"
-            onClick={() => {
-              handleSortClick("displaySize");
-            }}
-          >
-            Display Size
-          </div>
-          <div
-            className="device-overview__header-item"
-            onClick={() => {
-              handleSortClick("modelYear");
-            }}
-          >
-            Model Year
-          </div>
-          <div
-            className="device-overview__header-item"
-            onClick={() => {
-              handleSortClick("comment");
-            }}
-          >
-            Comment
-          </div>
-          <div
-            className="device-overview__header-item"
-            onClick={() => {
-              handleSortClick("availability");
-            }}
-          >
-            Availability
-          </div>
-          <div className="device-overview__header-item"></div>
-        </div>
+        <OverviewHeader handleSortClick={handleSortClick} />
         <div className="device-overview__main">
           {devices && !devices.length && (
             <p className="device-overview__error-message">
@@ -163,20 +106,6 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
           margin-top: 20px;
         }
 
-        .device-overview__header {
-          background-color: #222;
-          width: 100%;
-          display: flex;
-        }
-
-        .device-overview__header-item {
-          flex: 1;
-          padding: 20px;
-          color: #fff;
-          text-align: center;
-          cursor: pointer;
-        }
-
         .device-overview__main {
           position: relative;
         }
@@ -186,12 +115,6 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50%);
-        }
-
-        @media screen and (max-width: 1024px) {
-          .device-overview__header {
-            display: none;
-          }
         }
       `}</style>
     </>

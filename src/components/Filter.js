@@ -6,6 +6,7 @@ import {
   Button,
 } from "@mui/material";
 import valuesConfig from "../config/values.config";
+
 export default function Filter({ values, setValues }) {
   const onValueChange = (valueName, value) => {
     setValues({ ...values, [valueName]: value });

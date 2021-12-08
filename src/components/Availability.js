@@ -12,10 +12,7 @@ export default function Availability({ lendPeriods, setAvailable }) {
     const currentTimestamp = new Date().getTime();
     const currentLendPeriods = lendPeriods.filter(
       (lendPeriod) =>
-        lendPeriod.startTs <= currentTimestamp &&
-        (lendPeriod.lendState === "LEND_APPROVED" ||
-          lendPeriod.lendState === "RETURNED" ||
-          lendPeriod.lendState === "REQUESTED")
+        lendPeriod.startTs <= currentTimestamp && lendPeriodIsActive(lendPeriod)
     );
     if (currentLendPeriods.length) {
       dotAvailability = "current-unavailable";
@@ -24,9 +21,7 @@ export default function Availability({ lendPeriods, setAvailable }) {
         (lendPeriod) =>
           lendPeriod.startTs >= currentTimestamp &&
           lendPeriod.endTS > currentTimestamp &&
-          (lendPeriod.lendState === "LEND_APPROVED" ||
-            lendPeriod.lendState === "RETURNED" ||
-            lendPeriod.lendState === "REQUESTED")
+          lendPeriodIsActive(lendPeriod)
       );
 
       if (futureLendPeriods) {
@@ -148,3 +143,11 @@ export default function Availability({ lendPeriods, setAvailable }) {
     </>
   );
 }
+
+const lendPeriodIsActive = (lendPeriod) => {
+  return (
+    lendPeriod.lendState === "LEND_APPROVED" ||
+    lendPeriod.lendState === "RETURNED" ||
+    lendPeriod.lendState === "REQUESTED"
+  );
+};

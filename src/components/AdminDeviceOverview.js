@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import AdminDeviceOverviewEntry from "./AdminDeviceOverviewEntry";
 import Filter from "./Filter";
-
-const DEVICES_PATH = "/api/devices";
+import OverviewHeader from "./OverviewHeader";
 
 export default function AdminDeviceOverview({ devices, handleEditClick }) {
   const initial = {
@@ -45,65 +44,7 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
         <Filter setValues={setValues} values={values} />
       </div>
       <div className="admin-device-overview">
-        <div className="admin-device-overview__header">
-          <div
-            className="admin-device-overview__header-item"
-            onClick={() => {
-              handleSortClick("_id");
-            }}
-          >
-            #
-          </div>
-          <div
-            className="admin-device-overview__header-item"
-            onClick={() => {
-              handleSortClick("operatingSystem");
-            }}
-          >
-            Operating System
-          </div>
-          <div
-            className="admin-device-overview__header-item"
-            onClick={() => {
-              handleSortClick("keyboardLayout");
-            }}
-          >
-            Keyboard Layout
-          </div>
-          <div
-            className="admin-device-overview__header-item"
-            onClick={() => {
-              handleSortClick("displaySize");
-            }}
-          >
-            Display Size
-          </div>
-          <div
-            className="admin-device-overview__header-item"
-            onClick={() => {
-              handleSortClick("modelYear");
-            }}
-          >
-            Model Year
-          </div>
-          <div
-            className="admin-device-overview__header-item"
-            onClick={() => {
-              handleSortClick("comment");
-            }}
-          >
-            Comment
-          </div>
-          <div
-            className="admin-device-overview__header-item"
-            onClick={() => {
-              handleSortClick("availability");
-            }}
-          >
-            Availability
-          </div>
-          <div className="admin-device-overview__header-item"></div>
-        </div>
+        <OverviewHeader handleSortClick={handleSortClick} />
         <div className="admin-device-overview__main">
           {devices && !devices.length && (
             <p className="admin-device-overview__error-message">
@@ -130,17 +71,22 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
                     ? -1
                     : 1
                 )
-                .filter(
-                  (item) =>
-                    (item.operatingSystem === values.operatingSystem ||
-                      values.operatingSystem === "All") &&
-                    (item.keyboardLayout === values.keyboardLayout ||
-                      values.keyboardLayout === "All") &&
-                    (item.displaySize === values.displaySize ||
-                      values.displaySize === "All") &&
-                    (item.modelYear === values.modelYear ||
-                      values.modelYear === "All")
-                )
+                .filter((item) => {
+                  let renderItem = true;
+                  for (const key in item) {
+                    if (
+                      key !== "comment" &&
+                      key !== "_id" &&
+                      key !== "lendPeriods"
+                    ) {
+                      if (renderItem) {
+                        renderItem =
+                          item[key] === values[key] || values[key] === "All";
+                      }
+                    }
+                  }
+                  return renderItem;
+                })
                 .map((device) => (
                   <AdminDeviceOverviewEntry
                     device={device}
@@ -157,20 +103,6 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
       <style jsx>{`
         .admin-device-overview {
           margin-top: 20px;
-        }
-
-        .admin-device-overview__header {
-          background-color: #222;
-          width: 100%;
-          display: flex;
-        }
-
-        .admin-device-overview__header-item {
-          flex: 1;
-          padding: 20px;
-          color: #fff;
-          text-align: center;
-          cursor: pointer;
         }
 
         .admin-device-overview__main {
