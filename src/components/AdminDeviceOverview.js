@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import useSWR from "swr";
+import { useState } from "react";
 import AdminDeviceOverviewEntry from "./AdminDeviceOverviewEntry";
 import Filter from "./Filter";
 import OverviewHeader from "./OverviewHeader";
@@ -44,7 +43,7 @@ export default function AdminDeviceOverview({ devices, handleEditClick }) {
         <Filter setValues={setValues} values={values} />
       </div>
       <div className="admin-device-overview">
-        <OverviewHeader handleSortClick={handleSortClick} />
+        <OverviewHeader handleSortClick={handleSortClick} currentSort={sort} />
         <div className="admin-device-overview__main">
           {devices && !devices.length && (
             <p className="admin-device-overview__error-message">

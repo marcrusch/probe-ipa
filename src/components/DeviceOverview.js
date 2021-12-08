@@ -1,8 +1,7 @@
 import DeviceOverviewEntry from "./DeviceOverviewEntry";
 import useSWR, { mutate } from "swr";
 import Filter from "./Filter";
-import { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { useState } from "react";
 import OverviewHeader from "./OverviewHeader";
 
 const DEVICES_PATH = "/api/devices";
@@ -49,7 +48,7 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
         <Filter setValues={setValues} values={values} />
       </div>
       <div className="device-overview">
-        <OverviewHeader handleSortClick={handleSortClick} />
+        <OverviewHeader handleSortClick={handleSortClick} currentSort={sort} />
         <div className="device-overview__main">
           {devices && !devices.length && (
             <p className="device-overview__error-message">
@@ -76,17 +75,22 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
                     ? -1
                     : 1
                 )
-                .filter(
-                  (item) =>
-                    (item.operatingSystem === values.operatingSystem ||
-                      values.operatingSystem === "All") &&
-                    (item.keyboardLayout === values.keyboardLayout ||
-                      values.keyboardLayout === "All") &&
-                    (item.displaySize === values.displaySize ||
-                      values.displaySize === "All") &&
-                    (item.modelYear === values.modelYear ||
-                      values.modelYear === "All")
-                )
+                .filter((item) => {
+                  let renderItem = true;
+                  for (const key in item) {
+                    if (
+                      key !== "comment" &&
+                      key !== "_id" &&
+                      key !== "lendPeriods"
+                    ) {
+                      if (renderItem) {
+                        renderItem =
+                          item[key] === values[key] || values[key] === "All";
+                      }
+                    }
+                  }
+                  return renderItem;
+                })
                 .map((device) => (
                   <DeviceOverviewEntry
                     allowLend={allowLend}
@@ -124,10 +128,6 @@ export default function DeviceOverview({ onRequestLend, allowLend }) {
 const useDevicesFlow = () => {
   const fetcher = async (url) => await fetch(url).then((res) => res.json());
   const { data: devices } = useSWR(DEVICES_PATH, fetcher);
-
-  const onMutate = async () => {
-    await mutate();
-  };
 
   return {
     devices,

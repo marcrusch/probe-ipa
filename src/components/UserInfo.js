@@ -1,7 +1,6 @@
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import { useState } from "react";
 
 export default function UserInfo({ userInfo, onLogout }) {
   return (
@@ -19,6 +18,7 @@ export default function UserInfo({ userInfo, onLogout }) {
           <Button
             variant="outlined"
             onClick={onLogout}
+            fullWidth
             sx={{ zIndex: "20", backgroundColor: "#fff" }}
           >
             Log out
@@ -35,13 +35,19 @@ export default function UserInfo({ userInfo, onLogout }) {
           display: none;
         }
 
+        .user-info__info p {
+          margin: 10px 0;
+        }
+
         .user-info:hover .user-info__info {
+          z-index: 10;
           display: block;
           position: absolute;
           top: 0;
           right: 0;
           background-color: #eee;
-          padding: 0 10px;
+          padding: 10px;
+          border-radius: 5px;
         }
       `}</style>
     </>
